@@ -46,7 +46,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
-	rm -fr .cache
+	rm -fr .cache/
+	rm -fr .pytest_cache/
 
 test: ## run tests quickly with the default Python
 	. ~/.virtualenvs/biblioteca/bin/activate && py.test
@@ -54,10 +55,9 @@ test: ## run tests quickly with the default Python
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source biblioteca -m pytest
-	
-		coverage report -m
-		coverage html
-		$(BROWSER) htmlcov/index.html
+	coverage report -m
+	coverage html
+	$(BROWSER) htmlcov/index.html
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
@@ -71,7 +71,7 @@ upstream: ## set the upstream for the repository
 	git remote set-upstream https://gitlab.com/fhightower/biblioteca.git
 
 start: ## start a virtual environment for this project
-	virtualenv -p python3 ~/.virtualenvs/biblioteca && . ~/.virtualenvs/biblioteca/bin/activate && pip3 install -r requirements_dev.txt && python setup.py install
+	virtualenv -p python3 ~/.virtualenvs/biblioteca && . ~/.virtualenvs/biblioteca/bin/activate && pip3 install -r requirements_dev.txt
 
 destroy: ## destroy the virtual environment for this project
 	rm -rf ~/.virtualenvs/biblioteca
