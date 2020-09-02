@@ -1,7 +1,7 @@
 import datetime
 import uuid
 
-from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, uuid3, html_text, map_first_arg, home_directory_join
+from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, uuid3, html_text, map_first_arg, home_directory_join, file_write
 
 NAMESPACE = uuid.UUID(bytes=b'biblioteca000000')
 BASE_PATH = home_directory_join('biblioteca/')
