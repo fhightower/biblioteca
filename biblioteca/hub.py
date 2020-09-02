@@ -1,7 +1,7 @@
 import datetime
 import uuid
 
-from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, uuid3, html_text, map_first_arg, home_directory_join, file_name_escape
+from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, uuid3, html_text, map_first_arg, home_directory_join
 
 NAMESPACE = uuid.UUID(bytes=b'biblioteca000000')
 BASE_PATH = home_directory_join('biblioteca/')
@@ -44,15 +44,12 @@ def enrich_data(new_data):
 
 
 @map_first_arg
-def add(new_data, name=None):
+def add(new_data, name):
     """Add the new data to the library."""
     raw_data, enriched_data, meta_data = enrich_data(new_data)
 
-    if name:
-        meta_data['original_name'] = name
-        name = file_name_escape(name)
-    else:
-        name = uuid3(namespace=NAMESPACE)
+    name = uuid3(name, namespace=NAMESPACE)
+
     file_write(os.path.join(BASE_PATH, f'{name}.raw'), new_data)
     if enriched_data:
         file_write(os.path.join(BASE_PATH, f'{name}.enriched'), enriched_data)
