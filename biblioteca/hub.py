@@ -8,10 +8,10 @@ NAMESPACE = uuid.UUID(bytes=b'biblioteca000000')
 BASE_PATH = home_directory_join('biblioteca/')
 
 
-def enrich_data(new_data):
+def get_data(new_data):
     """Enrich the given data appropriately for its type."""
     raw_data = None
-    enrich_data = None
+    enriched_data = None
     meta_data = {
         'first_collected': str(datetime.date.today())
     }
@@ -24,7 +24,7 @@ def enrich_data(new_data):
         if url_file_ending.endswith('.pdf'):
             results = pdf_read(new_data)
             if any(results):
-                enrich_data = '\n\n'.join(results)
+                enriched_data = '\n\n'.join(results)
         else:
             # if domain_name in ['youtube.com', 'youtu.be']:
             #     pass
@@ -47,11 +47,11 @@ def enrich_data(new_data):
 @map_first_arg
 def add(new_data, name):
     """Add the new data to the library."""
-    raw_data, enriched_data, meta_data = enrich_data(new_data)
+    raw_data, enriched_data, meta_data = get_data(new_data)
 
     name = uuid3(name, namespace=NAMESPACE)
 
-    file_write(os.path.join(BASE_PATH, f'{name}.raw'), new_data)
+    file_write(os.path.join(BASE_PATH, f'{name}.raw'), raw_data)
     if enriched_data:
         file_write(os.path.join(BASE_PATH, f'{name}.enriched'), enriched_data)
     json_write(os.path.join(BASE_PATH, f'{name}.meta'), meta_data)
