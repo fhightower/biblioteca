@@ -49,7 +49,8 @@ def add(url: str, name: str = None) -> None:
     raw_data, enriched_data, meta_data = get_data(url)
 
     if not name:
-        name = file_name_escape(url)
+        cleaner_url = url.lstrip('htps://')
+        name = file_name_escape(cleaner_url)
 
     file_write(os.path.join(BASE_PATH, f'{name}.raw'), raw_data)
     if enriched_data:
