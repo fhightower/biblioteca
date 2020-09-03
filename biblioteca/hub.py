@@ -20,6 +20,7 @@ def get_data(new_data: str) -> Tuple[str, str, DictStrKeyStrVal]:
         url_file_ending = lowercase(url_file_name(new_data))
         domain_name = lowercase(url_domain(new_data))
 
+        raw_data = get(new_data)
         if url_file_ending.endswith('.pdf'):
             results = pdf_read(new_data)
             if any(results):
@@ -35,7 +36,6 @@ def get_data(new_data: str) -> Tuple[str, str, DictStrKeyStrVal]:
             #     pass
             # else:
             #     pass
-            raw_data = get(new_data)
             enriched_data = html_text(raw_data)
     else:
         raw_data = new_data
