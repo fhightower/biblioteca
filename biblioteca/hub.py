@@ -2,7 +2,7 @@ import datetime
 import os
 from typing import Tuple
 
-from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, html_text, map_first_arg, home_directory_join, file_write, file_name_escape, DictStrKeyStrVal
+from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, html_text, map_first_arg, home_directory_join, file_write, file_name_escape, DictStrKeyStrVal, url_scheme_remove
 
 BASE_PATH = home_directory_join('biblioteca/')
 
@@ -49,7 +49,7 @@ def add(url: str, name: str = None) -> None:
     raw_data, enriched_data, meta_data = get_data(url)
 
     if not name:
-        cleaner_url = url.lstrip('htps://')
+        cleaner_url = url_scheme_remove(url)
         name = file_name_escape(cleaner_url)
 
     file_write(os.path.join(BASE_PATH, f'{name}.raw'), raw_data)
