@@ -56,3 +56,4 @@ def add(url: str, name: str = None) -> None:
     if enriched_data:
         file_write(os.path.join(BASE_PATH, f'{name}.enriched'), enriched_data)
     json_write(os.path.join(BASE_PATH, f'{name}.meta'), meta_data)
+    print(f'Done with {name}!')
