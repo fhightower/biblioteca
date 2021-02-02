@@ -1,24 +1,28 @@
 import datetime
 import os
-from typing import Tuple
+from typing import Tuple, Dict
 
-from democritus_core import json_write, pdf_read, is_url, lowercase, url_file_name, url_domain, get, html_text, map_first_arg, home_directory_join, file_write, file_name_escape, DictStrKeyStrVal, url_scheme_remove
+from democritus_json import json_write
+from democritus_pdfs import pdf_read
+from democritus_urls import is_url, url_file_name, url_domain, url_scheme_remove
+from democritus_networking import get
+from democritus_html import html_text
+from democritus_file_system import home_directory_join, file_write, file_name_escape
+
 
 BASE_PATH = home_directory_join('biblioteca/')
 
 
-def get_data(new_data: str) -> Tuple[str, str, DictStrKeyStrVal]:
+def get_data(new_data: str) -> Tuple[str, str, Dict[str, str]]:
     """Enrich the given data appropriately for its type."""
     raw_data = None
     enriched_data = None
-    meta_data = {
-        'first_collected': str(datetime.date.today())
-    }
+    meta_data = {'first_collected': str(datetime.date.today())}
 
     if is_url(new_data):
         meta_data['url'] = new_data
-        url_file_ending = lowercase(url_file_name(new_data))
-        domain_name = lowercase(url_domain(new_data))
+        url_file_ending = url_file_name(new_data).lower()
+        domain_name = url_domain(new_data).lower()
 
         raw_data = get(new_data)
         if url_file_ending.endswith('.pdf'):

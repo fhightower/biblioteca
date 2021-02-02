@@ -1,1 +1,6 @@
-democritus_core
+democritus_file_system
+democritus_html
+democritus_json
+democritus_networking
+democritus_pdfs
+democritus_urls
