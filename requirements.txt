@@ -4,3 +4,4 @@ democritus_json
 democritus_networking
 democritus_pdfs
 democritus_urls
+democritus_utility

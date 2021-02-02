@@ -8,7 +8,7 @@ from democritus_urls import is_url, url_file_name, url_domain, url_scheme_remove
 from democritus_networking import get
 from democritus_html import html_text
 from democritus_file_system import home_directory_join, file_write, file_name_escape
-
+from democritus_utility import map_first_arg
 
 BASE_PATH = home_directory_join('biblioteca/')
 
