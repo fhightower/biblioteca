@@ -27,11 +27,6 @@ setup(
     author_email='floyd.hightower27@gmail.com',
     url='https://gitlab.com/fhightower/biblioteca',
     packages=find_packages(exclude=('tests', 'docs')),
-    entry_points={
-        'console_scripts': [
-            'biblioteca=biblioteca.cli:main'
-        ]
-    },
     include_package_data=True,
     install_requires=requirements,
     license=license,
@@ -51,5 +46,5 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
 )
