@@ -11,9 +11,10 @@ from democritus_file_system import home_directory_join, file_write, file_name_es
 from democritus_utility import map_first_arg
 
 BASE_PATH = home_directory_join('biblioteca/')
+MetadataType = Dict[str, str]
 
 
-def get_data(new_data: str) -> Tuple[str, str, Dict[str, str]]:
+def _get_data(new_data: str) -> Tuple[str, str, MetadataType]:
     """Enrich the given data appropriately for its type."""
     raw_data = None
     enriched_data = None
@@ -47,11 +48,8 @@ def get_data(new_data: str) -> Tuple[str, str, Dict[str, str]]:
     return raw_data, enriched_data, meta_data
 
 
-@map_first_arg
-def add(url: str, name: str = None) -> None:
-    """Add the new data to the library."""
-    raw_data, enriched_data, meta_data = get_data(url)
-
+def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType):
+    """."""
     if not name:
         cleaner_url = url_scheme_remove(url)
         name = file_name_escape(cleaner_url)
@@ -60,4 +58,12 @@ def add(url: str, name: str = None) -> None:
     if enriched_data:
         file_write(os.path.join(BASE_PATH, f'{name}.enriched'), enriched_data)
     json_write(os.path.join(BASE_PATH, f'{name}.meta'), meta_data)
-    print(f'Done with {name}!')
+    message = f'Done with {name}!'
+    print(message)
+
+
+@map_first_arg
+def add(url: str, name: str = None) -> None:
+    """Add the new data to the library."""
+    raw_data, enriched_data, meta_data = _get_data(url)
+    _save_data(raw_data, enriched_data, meta_data)
