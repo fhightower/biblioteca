@@ -25,7 +25,7 @@ def _get_data(new_data: str) -> Tuple[str, str, MetadataType]:
         url_file_ending = url_file_name(new_data).lower()
         domain_name = url_domain(new_data).lower()
 
-        raw_data = get(new_data)
+        raw_data = get(new_data, process_response=True)
         if url_file_ending.endswith('.pdf'):
             results = pdf_read(new_data)
             if any(results):
