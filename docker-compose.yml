@@ -1,7 +1,7 @@
 services:
   # a fully loaded development environment to test new code
-  devbox:
-    &devbox
+  dev:
+    &dev
     build:
       dockerfile: Dockerfile
       context: .
@@ -10,11 +10,11 @@ services:
 
   # run all the tests
   test:
-    <<: *devbox
+    <<: *dev
     command: pytest -v --cov=. --cov-report term-missing
 
   # run the linters
   # lint:
-  #   <<: *devbox
+  #   <<: *dev
   #   <<: *mount-app-and-user-git-config
   #   entrypoint: docker/bump_version.sh
