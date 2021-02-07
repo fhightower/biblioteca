@@ -48,12 +48,8 @@ def _get_data(new_data: str) -> Tuple[str, str, MetadataType]:
     return raw_data, enriched_data, meta_data
 
 
-def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType, *, name: Optional[str] = None):
+def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType, name: str):
     """."""
-    if not name:
-        cleaner_url = url_scheme_remove(url)
-        name = file_name_escape(cleaner_url)
-
     file_write(os.path.join(BASE_PATH, f'{name}.raw'), raw_data)
     if enriched_data:
         file_write(os.path.join(BASE_PATH, f'{name}.enriched'), enriched_data)
@@ -65,5 +61,9 @@ def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType, *, na
 @map_first_arg
 def add(url: str, name: str = None) -> None:
     """Add the new data to the library."""
+    if not name:
+        cleaner_url = url_scheme_remove(url)
+        name = file_name_escape(cleaner_url)
+
     raw_data, enriched_data, meta_data = _get_data(url)
-    _save_data(raw_data, enriched_data, meta_data, name=name)
+    _save_data(raw_data, enriched_data, meta_data, name)
