@@ -1,6 +1,6 @@
 import datetime
 import os
-from typing import Tuple, Dict
+from typing import Dict, Optional, Tuple
 
 from democritus_json import json_write
 from democritus_pdfs import pdf_read
@@ -48,7 +48,7 @@ def _get_data(new_data: str) -> Tuple[str, str, MetadataType]:
     return raw_data, enriched_data, meta_data
 
 
-def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType):
+def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType, *, name: Optional[str] = None):
     """."""
     if not name:
         cleaner_url = url_scheme_remove(url)
@@ -66,4 +66,4 @@ def _save_data(raw_data: str, enriched_data: str, meta_data: MetadataType):
 def add(url: str, name: str = None) -> None:
     """Add the new data to the library."""
     raw_data, enriched_data, meta_data = _get_data(url)
-    _save_data(raw_data, enriched_data, meta_data)
+    _save_data(raw_data, enriched_data, meta_data, name=name)
