@@ -5,8 +5,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    environment:
+      - BIBLIOTECA_BASE_PATH
     volumes:
       - ./:/code
+      - ${BIBLIOTECA_BASE_PATH}:${BIBLIOTECA_BASE_PATH}
 
   # run all the tests
   test:
