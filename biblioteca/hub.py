@@ -33,8 +33,8 @@ def _get_data(new_data: str) -> Tuple[str, str, MetadataType]:
         url_file_ending = url_file_name(new_data).lower()
         domain_name = url_domain(new_data).lower()
 
-        raw_data = get(new_data, process_response=True)
         if url_file_ending.endswith('.pdf'):
+            raw_data = get(new_data, process_response_as_bytes=True)
             results = pdf_read(new_data)
             if any(results):
                 enriched_data = '\n\n'.join(results)
@@ -49,6 +49,7 @@ def _get_data(new_data: str) -> Tuple[str, str, MetadataType]:
             #     pass
             # else:
             #     pass
+            raw_data = get(new_data, process_response=True)
             enriched_data = html_text(raw_data)
     else:
         raw_data = new_data
